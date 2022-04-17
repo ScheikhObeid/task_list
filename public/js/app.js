@@ -16,6 +16,10 @@ function loadEventListeners() {
   form.addEventListener("submit", addTask);
   // Remove task event
   taskList.addEventListener("click", removeTask);
+  // Clear all tasks
+  clearBtn.addEventListener("click", clearTasks);
+  // Filter
+  filter.addEventListener("keyup", filterTasks);
 }
 
 function addTask(e) {
@@ -26,6 +30,8 @@ function addTask(e) {
   const li = document.createElement("li");
   // Create li class
   li.className = "px-5 py-3 hover:bg-blue-600 hover:text-blue-200";
+  // Create li id
+  li.id = "item";
   // Create the text node and append it to li
   li.appendChild(document.createTextNode(taskInput.value));
 
@@ -49,6 +55,30 @@ function addTask(e) {
 //Remove task function
 function removeTask(e) {
   if (e.target.parentElement.classList.contains("float-right")) {
-    e.target.parentElement.parentElement.remove();
+    if (confirm("Are you sure, you want to delete this task?")) {
+      e.target.parentElement.parentElement.remove();
+    }
   }
+}
+
+// Clear Tasks
+function clearTasks() {
+  //   taskList.innerHTML = "";
+  // Faster
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
+}
+// Function task filter
+function filterTasks(e) {
+  const text = e.target.value.toLowerCase();
+
+  document.querySelectorAll("#item").forEach(function (task) {
+    const item = task.firstChild.textContent;
+    if (item.toLowerCase().indexOf(text) != -1) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
 }
