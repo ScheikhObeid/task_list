@@ -14,6 +14,8 @@ loadEventListeners();
 function loadEventListeners() {
   // Add task envent
   form.addEventListener("submit", addTask);
+  // Remove task event
+  taskList.addEventListener("click", removeTask);
 }
 
 function addTask(e) {
@@ -32,7 +34,7 @@ function addTask(e) {
   // Create a class
   link.className = "float-right";
   // Add icon
-  link.innerHTML = "x";
+  link.innerHTML = '<h4 class="text-xl cursor-pointer" >x</h4>';
   // Append the link to li
   li.appendChild(link);
 
@@ -42,4 +44,11 @@ function addTask(e) {
   //clear input
   taskInput.value = "";
   e.preventDefault();
+}
+
+//Remove task function
+function removeTask(e) {
+  if (e.target.parentElement.classList.contains("float-right")) {
+    e.target.parentElement.parentElement.remove();
+  }
 }
