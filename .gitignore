@@ -17,3 +17,7 @@ isolate*.log
 
 # Generated files
 /src/corePluginList.js
+
+
+# my files
+z-test.js
